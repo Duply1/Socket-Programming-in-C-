@@ -46,11 +46,23 @@ int main() {
 		return (EXIT_FAILURE);
 	}
 	else {
-		cout << endl << "Connected to the client ";
-		char buff[255] = { 0, };
+		cout << endl << "Connected to the server ";
+		char buff[255] = { 0 };
 		recv(nClientSocket, buff, 255, 0); //blocking call
-		
 		cout << endl << buff;
+		cout << endl << "Now send your messages";
+		while (1) {
+			fgets(buff, 255, stdin);
+			if (buff == "exit" || buff == "EXIT" ) {
+				break;
+			}
+			send(nClientSocket, buff, 255, 0);
+			cout << endl << "Press any key  ";
+			getchar();
+			recv(nClientSocket, buff, 255, 0);
+			cout <<  endl << "Now send the message to server: ";
+		}
+
 	}
 
 }
